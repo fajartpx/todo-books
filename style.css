@@ -1,0 +1,72 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+nav{
+    background-color: #e50914;
+    width: 100%;
+}
+
+.logo {
+    
+    padding: 20px 10px;
+    margin: 0px 80px;
+}
+
+.logo a {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    height: 60vh;
+    width:40%;
+    margin: 20px 80px;
+}
+
+.todo h2{
+    padding: 20px 0px;
+    font-weight: bold;
+}
+
+#masukkan-buku {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inputan {
+    padding: 20px 10px;
+    /* background-color: #e50914; */
+    display: flex;
+    align-items: flex-start;
+    font-size: 16px;
+}
+
+.inputan label {
+    font-size: 18px;
+    flex-basis: 20%;
+}
+
+.inputan input {
+    padding: 4px 10px;
+    height: 30px;
+    width: 100%;
+    border: 1px;
+    border-style: solid;
+    border-color: #000000;
+    border-radius: 4px;
+}
