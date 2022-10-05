@@ -14,25 +14,45 @@
         </nav>
     </head>
 
-    <div class="todo">
-        <h2>Masukkan Buku</h2>
-        <form id="masukkan-buku">
-            <div class="inputan">
-                <label for="judul">Judul</label>
-                <input type="text" name="judul" placeholder="Masuukan judul">
-            </div>
-            <div class="inputan">
-                <label for="penulis">Penulis</label>
-                <input type="text" name="penulis">
-            </div>
-            <div class="inputan">
-                <label for="tahun">Tahun</label>
-                <input type="text" name="tahun">
-            </div>
+    <main>
+        <div class="todo">
+            <h2>Masukkan Buku</h2>
+            <form id="masukkan-buku">
+                <div class="inputan">
+                    <label for="judul">Judul</label>
+                    <input type="text" name="judul" placeholder="Masuukan judul">
+                </div>
+                <div class="inputan">
+                    <label for="penulis">Penulis</label>
+                    <input type="text" name="penulis">
+                </div>
+                <div class="inputan">
+                    <label for="tahun">Tahun</label>
+                    <input type="text" name="tahun">
+                </div>
+                <button class="masukkan-buku" type="submit">Masukkan</button>
+            </form>
+        </div>
+        
+        <div class="list">
+            <section class="pencarian">
+                <h2> Cari Buku</h2>
+                <div>
+                    <label>Judul</label>
+                    <input type="text">
+                    <button>Cari</button>
+                </div> 
+            </section>
 
-            <button type="submit">
-        </form>
-    </div>
+            <section class="belum-dibaca">
+                <h2>Belum Selesai dibaca</h2>
+            </section>
+            <section class="sudah-dibaca">
+                <h2>Sudah Selesai dibaca</h2>
+            </section>
+        </div>
+    </main>
+    
     
 </body>
 </html>
