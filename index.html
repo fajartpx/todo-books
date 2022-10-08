@@ -20,17 +20,17 @@
             <form id="masukkan-buku">
                 <div class="inputan">
                     <label for="judul">Judul</label>
-                    <input type="text" name="judul" placeholder="Masuukan judul">
+                    <input type="text"  id="judul-buku" name="judula" placeholder="Masuukan judul" required>
                 </div>
                 <div class="inputan">
                     <label for="penulis">Penulis</label>
-                    <input type="text" name="penulis">
+                    <input type="text" id="penulis" name="penulis" required>
                 </div>
                 <div class="inputan">
                     <label for="tahun">Tahun</label>
-                    <input type="text" name="tahun">
+                    <input type="text" id="tahun" name="tahun" required>
                 </div>
-                <button class="masukkan-buku" type="submit">Masukkan</button>
+                <button id="input-buku" type="submit">Masukkan</button>
             </form>
         </div>
         
@@ -46,36 +46,37 @@
 
             <section class="buku">
                 <h3 class="dibaca">Belum Selesai dibaca</h3>
-                <div class="item">
+                <div >
                     <div class="judul-buku">
-                        <h4>Harry Potter </h4>
+                        <!-- <h4>Harry Potter </h4>
                         <p>Penulis : </p>
-                        <p>Tahun : </p>
+                        <p>Tahun : </p> -->
                     </div>
                     <div class="aksi">
-                        <button class="selesai" type="submit">SelesaI Baca</button>
-                        <button class="hapus" type="submit">Hapus Buku</button>
+                        <!-- <button class="selesai" type="submit">SelesaI Baca</button>
+                        <button class="hapus" type="submit">Hapus Buku</button> -->
                     </div>
                 </div>
                 
             </section>
             <section class="buku">
                 <h3 class="belum-dibaca">Sudah Selesai dibaca</h3>
-                <div class="item">
+                <div >
                     <div class="judul-buku">
-                        <h4>Harry Potter </h4>
+                        <!-- <h4>Harry Potter </h4>
                         <p>Penulis : </p>
-                        <p>Tahun : </p>
+                        <p>Tahun : </p> -->
                     </div>
                     <div class="aksi">
-                        <button class="selesai" type="submit">Belum SelesaI Baca</button>
-                        <button class="hapus" type="submit">Hapus Buku</button>
+                        <!-- <button class="selesai" type="submit">Belum SelesaI Baca</button>
+                        <button class="hapus" type="submit">Hapus Buku</button> -->
                     </div>
                 </div>
             </section>
         </div>
     </main>
 
+    <script src="./main.js"></script>
 
     
     

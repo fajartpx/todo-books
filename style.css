@@ -5,7 +5,7 @@
 }
 
 nav{
-    background-color: #e50914;
+    background-color: #40739e;
     width: 100%;
 }
 
@@ -76,7 +76,7 @@ main {
     border-radius: 4px;
 }
 
-.masukkan-buku {
+#input-buku {
     position: relative;
     left: 33vw;
     margin: 20px 0px;
