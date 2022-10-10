@@ -76,6 +76,10 @@ main {
     border-radius: 4px;
 }
 
+.selesai {
+    padding: 10px 10px;
+}
+
 #input-buku {
     position: relative;
     left: 33vw;
