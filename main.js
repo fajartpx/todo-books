@@ -1,8 +1,9 @@
 
 let todo = []
 
-let judulx = document.getElementById('kumpulan-buku')
-let aksi = document.getElementById('aksi')
+const getItem = document.getElementById('item')
+const getItem2 = document.getElementById('item-kedua')
+console.log(getItem)
 const RENDER_EVENT = 'render-todo';
 
 //generate ID
@@ -38,27 +39,41 @@ let makeTodo = ()=>{
 
 let makeList = (todoObject)=>{
 
+    const containerItem = document.createElement('div')
+    containerItem.classList.add('container-item')
+
+    const makeKumpulanBuku = document.createElement('div')
+    makeKumpulanBuku.classList.add('judul-buku')
+
     const dataJudul = document.createElement('h4')
     dataJudul.innerText = todoObject.judul;
-    console.log(dataJudul)
-
     const dataPenulis = document.createElement('p')
     dataPenulis.innerText ='Penulis : '+todoObject.penulis;
-
     const dataTahun = document.createElement('p')
     dataTahun.innerText ='Tahun : '+todoObject.tahun;
 
+    makeKumpulanBuku.append(dataJudul,dataPenulis,dataTahun);
 
-    judulx.append(dataJudul,dataPenulis,dataTahun);
- 
+
     const selesai = document.createElement('button')
-    selesai.innerText='Selesai Baca'
+    todoObject.isComplete===true?selesai.innerText='Selesai Baca':selesai.innerText='Belum Selesai Baca'
+
     selesai.classList.add('selesai')
     
     const hapus = document.createElement('button')
     hapus.innerText='Hapus Buku'
     hapus.classList.add('hapus')
-    aksi.append(selesai,hapus);
+
+    const makeAksi = document.createElement('div')
+    makeAksi.classList.add('aksi')
+    makeAksi.append(selesai,hapus)
+
+    containerItem.append(makeKumpulanBuku,makeAksi)
+
+    todoObject.isComplete===true?getItem.append(containerItem):getItem2.append(containerItem);
+    
+   
+ 
 
 }
 
@@ -67,7 +82,8 @@ let makeList = (todoObject)=>{
 
 
 document.addEventListener(RENDER_EVENT, ()=>{
-    judulx.innerHTML='';
+    getItem.innerHTML='';
+    getItem2.innerHTML='';
     todo.forEach((e)=>{
     makeList(e)
     })
