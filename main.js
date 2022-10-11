@@ -3,18 +3,17 @@ let todo = []
 
 const getItem = document.getElementById('item')
 const getItem2 = document.getElementById('item-kedua')
-console.log(getItem)
 const RENDER_EVENT = 'render-todo';
 
 //generate ID
 let generateID = ()=> {
-    return Date.now();
+     return Date.now();
 }
 
 //buat Objek data buku
 let dataBuku = (judul,penulis,tahun, isComplete=false)=>{
     return {
-        ID  : generateID(),
+        id: generateID(),
         judul,
         penulis,
         tahun,
@@ -35,9 +34,92 @@ let makeTodo = ()=>{
    
 }
 
+// let tele = [{A:"Tingkiwingki",B:"Dipsi"},{C:"Lala",D:"Po"}];
+// let nomor = [{E:"2",F:"6"},{G:"7",H:"12"}];
 
+// 		// for in
+        
+//         function xx() {
+//             for (let index in tele) {
+
+//         // console.log(typeof(x))
+// 		//   console.log(x);
+//          if (tele[index].A === "Tingkiwingki") {
+//         // console.log(tele[index].A)
+//         return index;
+
+//         }
+//             return -1;
+// 		};
+//         }
+		
+//         // console.log(tele[0].A)
+
+//         console.log(xx())
+
+//         const yy = ()=> {
+
+//         return tele.findIndex((e)=>{
+//             return e.A=="Tingkiwingki"
+//         }
+//         )   
+      
+//         }
+//         console.log(yy())
+       
+
+
+		// for of
+		// tele.forEach((e,index)=>{
+        //     console.log(typeof(index))
+        //     console.log("ini for each"+parseInt(index))
+        // })
+
+let findTodoIndex = (todoId)=>{
+    return todo.findIndex((e)=>{
+        return e.id===todoId
+    })
+    
+}
+
+function findTodoIndex2(todoId) {
+  for (index in todo) {
+    if (todo[index].id === todoId) {
+      return index;
+      
+    }
+   
+  }
+  
+  return -1;
+}
+
+
+
+
+let deleteTodo = (todoId)=>{
+    const todoTarget = findTodoIndex(todoId);
+    if (todoTarget === -1) return;
+    todo.splice(todoTarget, 1);
+
+  document.dispatchEvent(new Event(RENDER_EVENT));
+}
+
+function removeTaskFromCompleted(todoId /* HTMLELement */) {
+  const todoTarget = findTodoIndex(todoId);
+  const todoTarget2 = findTodoIndex2(todoId);
+ 
+  console.log(todoTarget)
+  console.log(todoTarget2)
+
+  if (todoTarget === -1) return;
+  todo.splice(todoTarget, 1);
+
+  document.dispatchEvent(new Event(RENDER_EVENT));
+}
 
 let makeList = (todoObject)=>{
+    const {id, judul, penulis, tahun} = todoObject;
 
     const containerItem = document.createElement('div')
     containerItem.classList.add('container-item')
@@ -46,17 +128,17 @@ let makeList = (todoObject)=>{
     makeKumpulanBuku.classList.add('judul-buku')
 
     const dataJudul = document.createElement('h4')
-    dataJudul.innerText = todoObject.judul;
+    dataJudul.innerText = judul;
     const dataPenulis = document.createElement('p')
-    dataPenulis.innerText ='Penulis : '+todoObject.penulis;
+    dataPenulis.innerText ='Penulis : '+penulis;
     const dataTahun = document.createElement('p')
-    dataTahun.innerText ='Tahun : '+todoObject.tahun;
+    dataTahun.innerText ='Tahun : '+tahun;
 
     makeKumpulanBuku.append(dataJudul,dataPenulis,dataTahun);
 
 
     const selesai = document.createElement('button')
-    todoObject.isComplete===true?selesai.innerText='Selesai Baca':selesai.innerText='Belum Selesai Baca'
+    todoObject.isComplete===true?selesai.innerText='Belum Selesai Baca':selesai.innerText='Selesai Baca'
 
     selesai.classList.add('selesai')
     
@@ -70,12 +152,15 @@ let makeList = (todoObject)=>{
 
     containerItem.append(makeKumpulanBuku,makeAksi)
 
-    todoObject.isComplete===true?getItem.append(containerItem):getItem2.append(containerItem);
+    todoObject.isComplete===true?getItem2.append(containerItem):getItem.append(containerItem);
     
-   
- 
+    hapus.addEventListener('click', function () {
+      removeTaskFromCompleted(id);
+    });
 
 }
+
+
 
 
 
@@ -87,7 +172,7 @@ document.addEventListener(RENDER_EVENT, ()=>{
     todo.forEach((e)=>{
     makeList(e)
     })
-    // console.log(todo)
+    console.log(todo)
 });
 
 
@@ -104,28 +189,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-// let nilai2 = dataBuku('aaaas','dbb','201w3');
-
-// todo.push(nilai)
-// todo.push(nilai2)
-
-// console.log(todo)
-// console.log(todo[1].judul)
-
-
-// const formBuku = document.getElementById('masukkan-buku');
-
-// formBuku.addEventListener('submit', makeTodo() );
-
-// let makeTodo = ()=>{
-//     const judul = document.getElementsByName('judul').value;
-//     const penulis = document.getElementsByName('penulis').value;
-//     const tahun = document.getElementsByName('tahun').value;
-
-
-
-//     const item = document.getElementsByClassName('judul-buku')
-//     item.cr
-// }
