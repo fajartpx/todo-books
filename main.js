@@ -118,8 +118,13 @@ function removeTaskFromCompleted(todoId /* HTMLELement */) {
   document.dispatchEvent(new Event(RENDER_EVENT));
 }
 
+const moveTaskFromStatment = (todoId)=>{
+  const todoTarget = findTodoIndex(todoId);
+  todoTarget.isComplete=true?false:true;
+}
+
 let makeList = (todoObject)=>{
-    const {id, judul, penulis, tahun} = todoObject;
+    const {id, judul, penulis, tahun, isComplete} = todoObject;
 
     const containerItem = document.createElement('div')
     containerItem.classList.add('container-item')
@@ -138,8 +143,7 @@ let makeList = (todoObject)=>{
 
 
     const selesai = document.createElement('button')
-    todoObject.isComplete===true?selesai.innerText='Belum Selesai Baca':selesai.innerText='Selesai Baca'
-
+    isComplete===true?selesai.innerText='Belum Selesai Baca':selesai.innerText='Selesai Baca'
     selesai.classList.add('selesai')
     
     const hapus = document.createElement('button')
@@ -158,6 +162,23 @@ let makeList = (todoObject)=>{
       removeTaskFromCompleted(id);
     });
 
+    
+    
+    selesai.addEventListener('click', ()=>{
+      const todoTarget = findTodoIndex(id);
+      if (todo[todoTarget].isComplete==false){
+        selesai.innerText='Belum Selesai Baca'
+        getItem2.append(containerItem)
+        todo[todoTarget].isComplete=true;
+        console.log( todo[todoTarget].isComplete)
+      }
+      else {
+        selesai.innerText='Selesai Baca'
+        getItem.append(containerItem)
+        todo[todoTarget].isComplete=false;
+      }
+    } )
+    
 }
 
 
