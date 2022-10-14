@@ -65,14 +65,13 @@ let pencarianBuku = ()=> {
 
 }
 
-let getPencarian = () => {
+let getPencarian = (todoObject) => {
     
-    const ambilButton = document.getElementById('btn-cari')
-    return ambilButton.addEventListener('click', ()=>{
+    const yy = document.getElementById('btn-cari')
+    return yy.addEventListener('click', ()=>{
     getItemPencarian.innerHTML=" ";
-
-    const ambilIndeks = pencarianBuku()
-    const {id, judul, penulis, tahun, isComplete} = ambilIndeks;
+    const mj = pencarianBuku()
+    const {id, judul, penulis, tahun, isComplete} = mj;
     const containerItem = document.createElement('div')
     containerItem.classList.add('container-item')
 
@@ -85,8 +84,7 @@ let getPencarian = () => {
     dataPenulis.innerText ='Penulis : '+penulis;
     const dataTahun = document.createElement('p')
     dataTahun.innerText ='Tahun : '+tahun;
-    
-    //buat data buku
+
     makeKumpulanBuku.append(dataJudul,dataPenulis,dataTahun);
 
 
@@ -98,64 +96,65 @@ let getPencarian = () => {
     hapus.innerText='Hapus Buku'
     hapus.classList.add('hapus')
 
-    //buat aksi dari data buku
     const makeAksi = document.createElement('div')
     makeAksi.classList.add('aksi')
     makeAksi.append(selesai,hapus)
-    
-    //tampilkan data buku
+
     containerItem.append(makeKumpulanBuku,makeAksi)
     getItemPencarian.append(containerItem);
+  hapus.addEventListener('click', function () {
+  let aaa = JSON.parse(localStorage.getItem('rr'))
+  const todoTarget = findTodoIndex(id);
+  console.log(aaa[todoTarget].id==id)
+  if (aaa[todoTarget].id==id) {
+    console.log( aaa.splice(todoTarget,1));
+    getItemPencarian.innerHTML="";
+  }
+     
 
-    //aksi hapus data buku
-    hapus.addEventListener('click', function () {
-      let getLocalStorage = JSON.parse(localStorage.getItem('rr'))
-      const todoTarget = findTodoIndex(id);
-      if (getLocalStorage[todoTarget].id==id) {
-          window.confirm('Yakin Hapus ?')?getLocalStorage.splice(todoTarget,1):getLocalStorage.splice();
-          getItemPencarian.innerHTML="";
-    }
-      
-      localStorage.setItem('rr', JSON.stringify(getLocalStorage));
-      document.dispatchEvent(new Event(RENDER_EVENT));
+     localStorage.setItem('rr', JSON.stringify(aaa));
       render()
-
-  });
+       document.dispatchEvent(new Event(RENDER_EVENT));
+    });
       
     selesai.addEventListener('click', ()=>{
-      //ambil data dari localstorage
       let userData = JSON.parse(localStorage.getItem('rr'));
       const todoTarget = findTodoIndex(id);
-
       if(userData[todoTarget].id==id) {
-        if (userData[todoTarget].isComplete==false) {
-            selesai.innerText='Belum Selesai Baca'
-            getItem2.append(containerItem)
-            userData[todoTarget].isComplete=true;
-            
-            localStorage.setItem('rr', JSON.stringify(userData));
-            JSON.parse(localStorage.getItem('rr'));
-            getItemPencarian.innerHTML="";
+        if (userData[todoTarget].isComplete==false){
+        selesai.innerText='Belum Selesai Baca'
+        getItem2.append(containerItem)
+        userData[todoTarget].isComplete=true;
+        // console.log(todo)
+        localStorage.setItem('rr', JSON.stringify(userData));
+         let mm = JSON.parse(localStorage.getItem('rr'));
+        makeList(mm)
+        getItemPencarian.innerHTML="";
       }
       
-        else {
-            selesai.innerText='Selesai Baca'
-            getItem.append(containerItem)
-            userData[todoTarget].isComplete=false;
-
-            localStorage.setItem('rr', JSON.stringify(userData));
-            getItemPencarian.innerHTML="";
+      else {
+        selesai.innerText='Selesai Baca'
+        getItem.append(containerItem)
+        userData[todoTarget].isComplete=false;
+        // console.log(todo)
+         localStorage.setItem('rr', JSON.stringify(userData));
+       
+        getItemPencarian.innerHTML="";
       }
-      //refresh page
-      render()  
+  
+      
     }
       else{
-        console.log('ID tidak ditemukan')
+        console.log("salah")
       }
-     } )
+      
+      document.dispatchEvent(new Event(RENDER_EVENT));
+    } )
+
+   
 }
    )
-};
+}
   
    
    
@@ -172,10 +171,34 @@ let deleteTodo = (todoId)=>{
   document.dispatchEvent(new Event(RENDER_EVENT));
 }
 
+//hapus dari rak buku 
+function removeTaskFromCompleted(todoId /* HTMLELement */) {
+  // let aaa = JSON.parse(localStorage.getItem('rr'))
+  // console.log(aaa)
+  // const todoTarget = findTodoIndex(todoId);
+  // if (todoTarget === -1) return;
+  // aaa.splice(todoTarget, 1);
+  // localStorage.setItem('rr', JSON.stringify(aaa));
+  // render()
+
+  // let aaa = JSON.parse(localStorage.getItem('rr'))
+  // console.log(aaa)
+  // const todoTarget = findTodoIndex(todoId);
+  // if (todoTarget === -1) return;
+  // aaa.splice(todoTarget, 1);
+  // localStorage.setItem('rr', JSON.stringify(aaa));
+  // render()
+
+  console.log('ouuu')
+  
+
+
+  document.dispatchEvent(new Event(RENDER_EVENT));
+}
+
 
 //input todo ke rak buku
 let makeList = (todoObject)=>{
-
     const {id, judul, penulis, tahun, isComplete} = todoObject;
 
 
@@ -194,6 +217,7 @@ let makeList = (todoObject)=>{
 
     makeKumpulanBuku.append(dataJudul,dataPenulis,dataTahun);
 
+
     const selesai = document.createElement('button')
     isComplete===true?selesai.innerText='Belum Selesai Baca':selesai.innerText='Selesai Baca'
     selesai.classList.add('selesai')
@@ -211,16 +235,15 @@ let makeList = (todoObject)=>{
     todoObject.isComplete===true?getItem2.insertBefore(containerItem,getItem2.firstElementChild):getItem.insertBefore(containerItem,getItem.firstElementChild);
     
     hapus.addEventListener('click', function () {
-      let getLocalStorage = JSON.parse(localStorage.getItem('rr'))
+      let aaa = JSON.parse(localStorage.getItem('rr'))
       const todoTarget = findTodoIndex(id);
-      console.log(getLocalStorage[todoTarget].id==id)
-      if (getLocalStorage[todoTarget].id==id) {
-        
-         window.confirm('Yakin Hapus ?')?getLocalStorage.splice(todoTarget,1):getLocalStorage.splice();
+      console.log(aaa[todoTarget].id==id)
+      if (aaa[todoTarget].id==id) {
+        console.log( aaa.splice(todoTarget,1));
       }
      
 
-     localStorage.setItem('rr', JSON.stringify(getLocalStorage));
+     localStorage.setItem('rr', JSON.stringify(aaa));
       render()
     });
       
@@ -237,41 +260,60 @@ let makeList = (todoObject)=>{
         getItem2.insertBefore(containerItem,getItem2.firstElementChild)
         userData[todoTarget].isComplete=true;
         localStorage.setItem('rr', JSON.stringify(userData));
-        JSON.parse(localStorage.getItem('rr'));
+        let mm = JSON.parse(localStorage.getItem('rr'));
+        console.log(mm)
       }
       else {
         selesai.innerText='Selesai Baca'
         getItem.insertBefore(containerItem,getItem.firstElementChild)
         userData[todoTarget].isComplete=false;
         localStorage.setItem('rr', JSON.stringify(userData));
-        JSON.parse(localStorage.getItem('rr'));
+        let mm = JSON.parse(localStorage.getItem('rr'));
+        console.log(mm)
       }
+      // console.log(todo)
     } )
 
 
     
 }
 
-//fungsi muat ulang list buku
+
+
+
 const render = ()=>{
-      let userData = JSON.parse(localStorage.getItem('rr'));
+        let userData = JSON.parse(localStorage.getItem('rr'));
         if (!userData) {
           userData=[]
           console.log("Local Storage Kosong")
         }
         else {
-          getItem.innerHTML='';
-          getItem2.innerHTML='';
-          userData.forEach((e)=>{
-          makeList(e)
-          todo = userData
-  })
+        getItem.innerHTML='';
+        getItem2.innerHTML='';
+        
+        userData.forEach((e)=>{
+        makeList(e)
+        todo = userData
+        console.log(todo)
+        console.log(userData)
+    })
+        }
+        
+
+       document.dispatchEvent(new Event(RENDER_PENCARIAN));
+  
+
+    // console.log(todo)
+
 }
-}
+
 
 
 document.addEventListener(RENDER_EVENT, render() );
+
 document.addEventListener(RENDER_PENCARIAN, getPencarian() );
+
+
 document.addEventListener('DOMContentLoaded', function () {
   const submitForm = document.getElementById('masukkan-buku');
   submitForm.addEventListener('submit', function (event) {
